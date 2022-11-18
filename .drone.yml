@@ -1,0 +1,23 @@
+kind: pipeline
+name: test
+
+platform:
+  os: linux
+  arch: amd64
+
+trigger:
+  branch:
+  - main
+
+steps:
+  - name: setup
+    image: alpine:latest
+    pull: always
+    depends_on: [ clone ]
+    environment:
+      USERNAME:
+        from_secret: cbox_username
+      PASSWORD:
+        from_secret: cbox_password
+    commands:
+      - printenv
